@@ -1,0 +1,17 @@
+[project]
+name = "elevator-dispatch-system"
+version = "0.1.0"
+description = "Scalable elevator dispatch system"
+authors = [
+{ name="Olga Shershevsky", email="ol.shersh@gmail.com" }
+]
+requires-python = ">=3.10"
+
+dependencies = []
+
+[tool.black]
+line-length = 88
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
