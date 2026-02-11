@@ -1,0 +1,14 @@
+# Python compilation
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+env/
+
+# IDE / Editor settings
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
