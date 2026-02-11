@@ -36,11 +36,9 @@ class Elevator:
 
         if self.direction == req.direction:
             if self.direction == Direction.UP and req.from_floor > self.current_floor:
-
                 return indx_target_right - indx_current_right
 
             if self.direction == Direction.DOWN and req.from_floor < self.current_floor:
-
                 return indx_current_left - indx_target_left
 
         # turnaround
@@ -54,10 +52,10 @@ class Elevator:
 
     def add_request(self, req: Request):
         """Add both req.from and req.to as stops to this elevator"""
+
         self.add_stop(req.from_floor)
         self.add_stop(req.to_floor)
         if self.direction == Direction.IDLE:
-
             if req.from_floor > self.current_floor:
                 self.direction = Direction.UP
             elif req.from_floor < self.current_floor:
@@ -73,7 +71,6 @@ class Elevator:
             return
 
         current_floor_indx = bisect.bisect_left(self.stops, self.current_floor)
-
         if (
             current_floor_indx < len(self.stops)
             and self.stops[current_floor_indx] == self.current_floor
