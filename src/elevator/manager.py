@@ -1,4 +1,3 @@
-import queue
 from typing import List
 from .models import Request, Direction
 from .elevator import Elevator
@@ -8,7 +7,6 @@ class ElevatorManager:
 
     def __init__(self, num_elevators: int):
         self.elevators = [Elevator(i) for i in range(num_elevators)]
-        self.request_queue = queue.Queue()
 
     def find_best_elevator(self, req: Request) -> Elevator:
         """return elevator that has the minimal numbers of stops in order to pickup this request"""
