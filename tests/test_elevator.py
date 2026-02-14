@@ -84,3 +84,23 @@ def test_move_step_teleport(elevator):
 
     assert elevator.current_floor == 5
     assert 5 not in elevator.stops  # 5 removed
+
+
+def test_turnaround_with_requests_on_both_dirs_up(elevator):
+    elevator.current_floor = 10
+    elevator.add_request(Request(12, 20))
+    elevator.add_request(Request(4, 8))
+
+    req = Request(5, 17)
+    cost = elevator.number_of_stops_before(req)
+    assert cost == 3
+
+
+def test_turnaround_with_requests_on_both_dirs_down(elevator):
+    elevator.current_floor = 10
+    elevator.add_request(Request(8, 2))
+    elevator.add_request(Request(3, 4))
+
+    req = Request(9, 17)
+    cost = elevator.number_of_stops_before(req)
+    assert cost == 4

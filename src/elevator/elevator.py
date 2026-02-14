@@ -26,7 +26,7 @@ class Elevator:
         # to get the next stop index above current floor
         indx_current_right = bisect.bisect_right(self.stops, self.current_floor)
 
-        # to get the stop below or equal the current floor
+        # to get the stop above or equal the current floor
         indx_current_left = bisect.bisect_left(self.stops, self.current_floor)
 
         # indexes for the pickup
@@ -35,18 +35,26 @@ class Elevator:
         indx_target_left = bisect.bisect_left(self.stops, req.from_floor)
 
         if self.direction == req.direction:
-            if self.direction == Direction.UP and req.from_floor > self.current_floor:
+            if self.direction == Direction.UP and req.from_floor >= self.current_floor:
                 return indx_target_right - indx_current_right
 
-            if self.direction == Direction.DOWN and req.from_floor < self.current_floor:
+            if (
+                self.direction == Direction.DOWN
+                and req.from_floor <= self.current_floor
+            ):
                 return indx_current_left - indx_target_left
 
         # turnaround
         if self.direction == Direction.UP:
-            return len(self.stops) - indx_current_right
+            # need to count steps left up + the steps down for the existing steps between current and target
+            stops_to_complete_up = len(self.stops) - indx_current_right
+            stops_to_do_down = indx_current_right - indx_target_right
+            return stops_to_complete_up + stops_to_do_down
 
         if self.direction == Direction.DOWN:
-            return indx_current_left
+            stops_to_complete_down = indx_current_left
+            stops_to_do_up = indx_target_left - indx_current_left
+            return stops_to_complete_down + stops_to_do_up
 
         return 0
 
